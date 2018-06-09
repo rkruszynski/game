@@ -1,0 +1,105 @@
+{% extends 'legendary/base.html' %}
+
+{% block content %}
+
+{{ hero.name }}
+
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th class="col-md-2">Name</th>
+            <th class="col-md-2">Value</th>
+        </tr>
+    </thead>
+        <tr>
+            <td>Name</td>
+            <td>{{ hero.name }}</td>
+        </tr>
+        <tr>
+            <td>Team</td>
+            <td> {{ hero.team }}</td>
+        </tr>
+        <tr>
+            <td>Strength</td>
+            <td> {{ hero.strenght }}</td>
+        </tr>
+        <tr>
+            <td>instinct</td>
+            <td> {{ hero.instinct }}</td>
+        </tr>
+        <tr>
+            <td>Covert</td>
+            <td> {{ hero.covert }}</td>
+        </tr>
+        <tr>
+            <td>Technology</td>
+            <td> {{ hero.tech }}</td>
+        </tr>
+        <tr>
+            <td>Energy</td>
+            <td> {{ hero.energy }}</td>
+        </tr>
+        <tr>
+            <td>Piercing energy</td>
+            <td>
+                {% if hero.piercing_energy %}
+                    <span class="glyphicon glyphicon-ok"></span>
+                {% else %}
+                    <span class="glyphicon glyphicon-remove"></span>
+                {% endif %}
+            </td>
+        </tr>
+        <tr>
+            <td>Teleport</td>
+            <td>
+                {% if hero.teleport %}
+                    <span class="glyphicon glyphicon-ok"></span>
+                {% else %}
+                    <span class="glyphicon glyphicon-remove"></span>
+                {% endif %}
+            </td>
+        </tr>
+        <tr>
+            <td>X-gene</td>
+            <td>
+                {% if hero.x_gene %}
+                    <span class="glyphicon glyphicon-ok"></span>
+                {% else %}
+                    <span class="glyphicon glyphicon-remove"></span>
+                {% endif %}
+            </td>
+        </tr>
+    <tr>
+        <td>
+            Versatile
+        </td>
+        <td>
+            {% if hero.versatile %}
+                    <span class="glyphicon glyphicon-ok"></span>
+                {% else %}
+                    <span class="glyphicon glyphicon-remove"></span>
+                {% endif %}
+        </td>
+    </tr>
+    <tr>
+            <td>Recruitment points</td>
+            <td>
+                {% if hero.recruitment_points %}
+                    <span class="glyphicon glyphicon-star"></span>
+                {% else %}
+                    <span class="glyphicon glyphicon-star-empty"></span>
+                {% endif %}
+            </td>
+        </tr>
+</table>
+
+Team: {{hero.team}}
+    <ul>
+        <li>Strenght: {{hero.strenght}}</li>
+        <li>Instinct: {{hero.instinct}}</li>
+        <li>Covert: {{hero.covert}}</li>
+        <li>Technology: {{hero.tech}}</li>
+        <li>Energy: {{hero.energy}}</li>
+    </ul>
+
+{% endblock %}

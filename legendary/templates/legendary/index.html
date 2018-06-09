@@ -1,0 +1,83 @@
+{% extends 'legendary/base.html' %}
+
+{% block content %}
+
+{% if heros %}
+<table class="table table-hover">
+  <thead>
+    <tr>
+      <th scope="col"></th>
+      <th scope="col">Name</th>
+      <th scope="col">Team</th>
+      <th scope="col">Strength</th>
+      <th scope="col">instinct</th>
+      <th scope="col">covert</th>
+      <th scope="col">Technical</th>
+      <th scope="col">Energy</th>
+      <th scope="col">Piercing energy</th>
+      <th scope="col">Teleport</th>
+      <th scope="col">X-gene</th>
+      <th scope="col">Versatile</th>
+      <th scope="col">Recruitment points</th>
+
+    </tr>
+  </thead>
+  <tbody>
+  {% for hero in heros %}
+    <tr>
+      <th scope="row">1</th>
+        <td><a href = "/legendary/{{hero.id}}/">{{hero.name}}</a></td>
+      <td>{{hero.team}}o</td>
+      <td class="text-center">{{hero.strenght}}</td>
+      <td class="text-center">{{hero.instinct}}</td>
+      <td class="text-center">{{hero.covert}}</td>
+      <td class="text-center">{{hero.tech}}</td>
+      <td class="text-center">{{hero.energy}}</td>
+      <td class="text-center">
+          {% if hero.piercing_energy%}
+                    <span class="glyphicon glyphicon-ok"></span>
+                {% else %}
+                    <span class="glyphicon glyphicon-remove"></span>
+                {% endif %}
+      </td>
+      <td class="text-center">
+          {% if hero.teleport%}
+                    <span class="glyphicon glyphicon-ok"></span>
+                {% else %}
+                    <span class="glyphicon glyphicon-remove"></span>
+                {% endif %}
+      </td>
+      <td class="text-center">
+          {% if hero.x_gene%}
+                    <span class="glyphicon glyphicon-ok"></span>
+                {% else %}
+                    <span class="glyphicon glyphicon-remove"></span>
+                {% endif %}
+      </td>
+      <td class="text-center">
+          {% if hero.versatile%}
+                    <span class="glyphicon glyphicon-ok"></span>
+                {% else %}
+                    <span class="glyphicon glyphicon-remove"></span>
+                {% endif %}
+      </td>
+      <td class="text-center">
+          {% if hero.recruitment_points%}
+                    <span class="glyphicon glyphicon-ok"></span>
+                {% else %}
+                    <span class="glyphicon glyphicon-remove"></span>
+                {% endif %}
+      </td>
+    </tr>
+  {% endfor %}
+  </tbody>
+</table>
+        {% for hero in heros %}
+            <li> <a href = "/legendary/{{hero.id}}/"> {{ hero.name }} </a></li>
+        {% endfor %}
+
+{% else %}
+<p>You don't have any heroes!</p>
+{% endif %}
+
+{%  endblock %}

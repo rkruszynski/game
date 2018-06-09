@@ -1,0 +1,15 @@
+{% extends 'legendary/base.html' %}
+
+{% block content %}
+
+<form action="" method="POST">
+    {% csrf_token %}
+    {% for field in form %}
+    <div class="form-group">
+    {{ field.label_tag }}
+    <p> {{field}}</p>
+    {% endfor %}
+    </div>
+    <input type="submit" value="Submit">
+</form>
+{%  endblock %}
