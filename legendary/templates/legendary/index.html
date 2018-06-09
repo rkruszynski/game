@@ -62,19 +62,37 @@
                 {% endif %}
       </td>
       <td class="text-center">
-          {% if hero.recruitment_points%}
-                    <span class="glyphicon glyphicon-ok"></span>
-                {% else %}
-                    <span class="glyphicon glyphicon-remove"></span>
-                {% endif %}
+          {% if hero.recruitment_points > 0 %}
+            <span class="glyphicon glyphicon-star"></span>
+          {% endif %}
+                    {% if hero.recruitment_points > 1 %}
+            <span class="glyphicon glyphicon-star"></span>
+          {% endif %}
+                    {% if hero.recruitment_points > 2 %}
+            <span class="glyphicon glyphicon-star"></span>
+          {% endif %}
+                    {% if hero.recruitment_points > 3 %}
+            <span class="glyphicon glyphicon-star"></span>
+          {% endif %}
+                    {% if hero.recruitment_points < 4 %}
+            <span class="glyphicon glyphicon-star-empty"></span>
+          {% endif %}
+                    {% if hero.recruitment_points < 3 %}
+            <span class="glyphicon glyphicon-star-empty"></span>
+          {% endif %}
+                    {% if hero.recruitment_points < 2 %}
+            <span class="glyphicon glyphicon-star-empty"></span>
+          {% endif %}
+                    {% if hero.recruitment_points < 1 %}
+            <span class="glyphicon glyphicon-star-empty"></span>
+          {% endif %}
+
       </td>
     </tr>
   {% endfor %}
   </tbody>
 </table>
-        {% for hero in heros %}
-            <li> <a href = "/legendary/{{hero.id}}/"> {{ hero.name }} </a></li>
-        {% endfor %}
+
 
 {% else %}
 <p>You don't have any heroes!</p>
