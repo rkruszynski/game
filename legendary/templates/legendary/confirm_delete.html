@@ -1,0 +1,11 @@
+{% extends 'legendary/base.html' %}
+
+{% block content %}
+
+<form action="" method="POST">
+    {% csrf_token %}
+        <p>Are you sure you want to delete hero named "{{object.name}}"</p>
+    <input type="submit" value="Confirm" class="btn btn-warning">
+    <a href="/legendary">Cancel</a>
+</form>
+{%  endblock %}

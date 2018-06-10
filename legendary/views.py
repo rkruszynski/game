@@ -1,9 +1,11 @@
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
+
 from .models import Hero, Team, Mastermind, Scheme
 from django.http import HttpResponse, Http404, HttpResponseRedirect
 from django.template import loader
 from .forms import HeroForm, TeamForm, MastermindForm, SchemeForm
 from django.contrib import messages
+
 
 
 # Create your views here.
@@ -24,6 +26,18 @@ def hero_detail(request, hero_id):
     except Hero.DoesNotExist:
         raise Http404("Hero does not exist!")
     return render(request, 'legendary/hero_detail.html', {'hero': hero})
+
+
+def hero_delete(request, hero_id):
+    obj = get_object_or_404(Hero, pk=hero_id)
+    if request.method == "POST":
+        obj.delete()
+        messages.success(request, "This hero was succesfully deleted")
+        return HttpResponseRedirect('/legendary/')
+    context = {
+        "object": obj
+    }
+    return render(request, "legendary/confirm_delete.html", context)
 
 
 def team_detail(request, team_id):
