@@ -26,7 +26,7 @@
   {% for hero in heros %}
     <tr>
       <th scope="row">1</th>
-        <td><a href = "/legendary/{{hero.id}}/">{{hero.name}}</a></td>
+        <td><a href = "/legendary/hero/{{hero.id}}/">{{hero.name}}</a></td>
       <td>{{hero.team}}o</td>
       <td class="text-center">{{hero.strenght}}</td>
       <td class="text-center">{{hero.instinct}}</td>
@@ -86,7 +86,6 @@
                     {% if hero.recruitment_points < 1 %}
             <span class="glyphicon glyphicon-star-empty"></span>
           {% endif %}
-
       </td>
     </tr>
   {% endfor %}
