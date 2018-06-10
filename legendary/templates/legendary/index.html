@@ -6,7 +6,7 @@
 <table class="table table-hover">
   <thead>
     <tr>
-      <th scope="col"></th>
+      <th scope="col" ></th>
       <th scope="col">Name</th>
       <th scope="col">Team</th>
       <th scope="col">Strength</th>
@@ -19,6 +19,7 @@
       <th scope="col">X-gene</th>
       <th scope="col">Versatile</th>
       <th scope="col">Recruitment points</th>
+      <th>Delete Hero</th>
 
     </tr>
   </thead>
@@ -62,6 +63,7 @@
                 {% endif %}
       </td>
       <td class="text-center">
+          {{hero.recruitment_points}}
           {% if hero.recruitment_points > 0 %}
             <span class="glyphicon glyphicon-star"></span>
           {% endif %}
@@ -87,7 +89,15 @@
             <span class="glyphicon glyphicon-star-empty"></span>
           {% endif %}
       </td>
+      <td>
+
+              <a href="/legendary/hero/delete/{{hero.id}}">
+                  <span title = "Delete hero" class="glyphicon glyphicon-remove-sign"></span>
+              </a>
+
+      </td>
     </tr>
+
   {% endfor %}
   </tbody>
 </table>
@@ -96,5 +106,6 @@
 {% else %}
 <p>You don't have any heroes!</p>
 {% endif %}
+
 
 {%  endblock %}
