@@ -26,6 +26,14 @@ def hero_detail(request, hero_id):
     return render(request, 'legendary/hero_detail.html', {'hero': hero})
 
 
+def team_detail(request, team_id):
+    try:
+        team = Team.objects.get(pk=team_id)
+    except Team.DoesNotExist:
+        raise Http404("Team does not exist!")
+    return render(request, 'legendary/team_detail.html', {'team': team})
+
+
 def create(request):
     if request.method == 'POST':
         hero_form = HeroForm(request.POST)

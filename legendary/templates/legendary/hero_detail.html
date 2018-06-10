@@ -83,23 +83,34 @@
     </tr>
     <tr>
             <td>Recruitment points</td>
-            <td>
-                {% if hero.recruitment_points %}
-                    <span class="glyphicon glyphicon-star"></span>
-                {% else %}
-                    <span class="glyphicon glyphicon-star-empty"></span>
-                {% endif %}
-            </td>
+      <td class="text-left">
+          {% if hero.recruitment_points > 0 %}
+            <span class="glyphicon glyphicon-star"></span>
+          {% endif %}
+                    {% if hero.recruitment_points > 1 %}
+            <span class="glyphicon glyphicon-star"></span>
+          {% endif %}
+                    {% if hero.recruitment_points > 2 %}
+            <span class="glyphicon glyphicon-star"></span>
+          {% endif %}
+                    {% if hero.recruitment_points > 3 %}
+            <span class="glyphicon glyphicon-star"></span>
+          {% endif %}
+                    {% if hero.recruitment_points < 4 %}
+            <span class="glyphicon glyphicon-star-empty"></span>
+          {% endif %}
+                    {% if hero.recruitment_points < 3 %}
+            <span class="glyphicon glyphicon-star-empty"></span>
+          {% endif %}
+                    {% if hero.recruitment_points < 2 %}
+            <span class="glyphicon glyphicon-star-empty"></span>
+          {% endif %}
+                    {% if hero.recruitment_points < 1 %}
+            <span class="glyphicon glyphicon-star-empty"></span>
+          {% endif %}
+      </td>
         </tr>
 </table>
 
-Team: {{hero.team}}
-    <ul>
-        <li>Strenght: {{hero.strenght}}</li>
-        <li>Instinct: {{hero.instinct}}</li>
-        <li>Covert: {{hero.covert}}</li>
-        <li>Technology: {{hero.tech}}</li>
-        <li>Energy: {{hero.energy}}</li>
-    </ul>
 
 {% endblock %}
