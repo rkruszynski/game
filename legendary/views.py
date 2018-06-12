@@ -70,8 +70,13 @@ def add_team(request):
 
 
 def teams_page(request):
-    teams = Team.objects.order_by('name')
-    return render(request, 'legendary/teams.html', {'teams': teams})
+    teams = Team.objects.all()
+    context = {}
+
+    for team in teams:
+        counter = len(Hero.objects.filter(team=team.id))
+        context[team] = counter
+    return render(request, 'legendary/teams.html', {'teams': context})
 
 
 def thanks(request):
