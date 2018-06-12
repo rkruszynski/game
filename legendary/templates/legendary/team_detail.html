@@ -3,10 +3,15 @@
 {% block content %}
 
 <p> Team name:{{ team.name }}</p>
+{% if heros %}
 Team members:
 <ul>{% for hero in heros %}
 <li>{{hero.name}}</li>
 {% endfor %}
 </ul>
+
+{% else %}
+<p><span class="alert-warning">there is no heroes for this team!</span></p>
+{% endif %}
 
 {% endblock %}

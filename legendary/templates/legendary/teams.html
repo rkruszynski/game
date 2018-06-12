@@ -12,8 +12,8 @@
     {% for team in teams %}
         <tr>
             <td class="text-left">
-                <a href = "/legendary/teams/{{team.id}}"{{ team.id }}</a>{{ team.id }}</td>
-            <td class="text-left">{{ team.name }}</td>
+                {{ team.id }}</td>
+            <td class="text-left"><a href = "/legendary/teams/{{team.id}}">{{ team.name }}</a></td>
         </tr>
 
     {% endfor %}
