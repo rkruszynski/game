@@ -45,7 +45,8 @@ def team_detail(request, team_id):
         team = Team.objects.get(pk=team_id)
     except Team.DoesNotExist:
         raise Http404("Team does not exist!")
-    return render(request, 'legendary/team_detail.html', {'team': team})
+    heros = Hero.objects.filter(team=team_id)
+    return render(request, 'legendary/team_detail.html', {'team': team, 'heros': heros})
 
 
 def create(request):

@@ -2,9 +2,11 @@
 
 {% block content %}
 
-<div>Team name: {{ team.name }}</div>
-
-
-
+<p> Team name:{{ team.name }}</p>
+Team members:
+<ul>{% for hero in heros %}
+<li>{{hero.name}}</li>
+{% endfor %}
+</ul>
 
 {% endblock %}
