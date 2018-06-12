@@ -6,16 +6,17 @@
     <thead>
         <th>ID</th>
         <th>Name</th>
+        <th>Number of heroes</th>
     </thead>
 
     <tbody>
-    {% for team in teams %}
+    {% for key, value in teams.items %}
         <tr>
             <td class="text-left">
-                {{ team.id }}</td>
-            <td class="text-left"><a href = "/legendary/teams/{{team.id}}">{{ team.name }}</a></td>
+                {{ key.id }}</td>
+            <td class="text-left"><a href = "/legendary/teams/{{key.id}}">{{ key.name }}</a></td>
+            <td> {{value}}</td>
         </tr>
-
     {% endfor %}
     </tbody>
 
