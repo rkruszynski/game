@@ -1,9 +1,9 @@
 from django.shortcuts import render, get_object_or_404
 
-from .models import Hero, Team, Mastermind, Scheme
+from .models import Hero, Team, Mastermind, Scheme, Game
 from django.http import HttpResponse, Http404, HttpResponseRedirect
 from django.template import loader
-from .forms import HeroForm, TeamForm, MastermindForm, SchemeForm
+from .forms import HeroForm, TeamForm, MastermindForm, SchemeForm, GameForm
 from django.contrib import messages
 
 
@@ -113,3 +113,18 @@ def add_scheme(request):
 def schemes_page(request):
     schemes = Scheme.objects.order_by('name')
     return render(request, 'legendary/schemes.html', {'schemes': schemes})
+
+
+def add_game(request):
+    if request.method == "POST":
+        game_form = GameForm(request.POST)
+        game_form.save()
+        return HttpResponseRedirect('/legendary/games')
+    else:
+        game_form = GameForm()
+    return render(request, 'legendary/add_game.html', {'form': game_form})
+
+
+def gammes_page(request):
+    games = Game.objects.all()
+    return render(request, 'legendary/games_page.html', {'games': games})
