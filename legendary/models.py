@@ -50,7 +50,7 @@ class Mastermind(models.Model):
 class Scheme(models.Model):
 
     name = models.CharField(max_length=200)
-    description = models.TextField(max_length=1000)
+    description = models.TextField(max_length=1000, blank=True)
 
     def __str__(self):
         return self.name
@@ -78,12 +78,12 @@ class Game(models.Model):
     hero_1 = models.ForeignKey(Hero, on_delete=models.PROTECT, related_name='hero_1')
     hero_2 = models.ForeignKey(Hero, on_delete=models.PROTECT, related_name='hero_2')
     hero_3 = models.ForeignKey(Hero, on_delete=models.PROTECT, related_name='hero_3')
-    hero_4 = models.ForeignKey(Hero, on_delete=models.PROTECT, related_name='hero_4')
-    hero_5 = models.ForeignKey(Hero, on_delete=models.PROTECT, related_name='hero_5')
+    hero_4 = models.ForeignKey(Hero, on_delete=models.PROTECT, related_name='hero_4', blank=True, null=True)
+    hero_5 = models.ForeignKey(Hero, on_delete=models.PROTECT, related_name='hero_5', blank=True, null=True)
     mastermind = models.ForeignKey(Mastermind, on_delete=models.PROTECT)
     scheme = models.ForeignKey(Scheme, on_delete=models.PROTECT)
     win = models.BooleanField(default=True)
-    comments = models.TextField(max_length=1000)
+    comments = models.TextField(max_length=1000, blank=True)
 
     def __str__(self):
         return "abc"

@@ -5,8 +5,15 @@
 <table class="table table-hover">
     <thead>
         <th>ID</th>
-        <th>Name</th>
-        <th>Number of heroes</th>
+        <th>Singleplayer</th>
+        <th>Hero 1</th>
+        <th>Hero 2</th>
+        <th>Hero 3</th>
+        <th>Hero 4</th>
+        <th>Hero 5</th>
+        <th>Mastermind</th>
+        <th>Scheme</th>
+        <th>Win</th>
     </thead>
 
     <tbody>
@@ -14,8 +21,33 @@
         <tr>
             <td class="text-left">
                 {{ game.id }}</td>
-            <td class="text-left"><a href = "/legendary/teams/{{key.id}}">{{ game.single_player }}</a></td>
+            <td class="text-left">
+                {% if game.single_player %}
+                    Yes
+                {% else %}
+                    No
+                {% endif %}
+            </td>
             <td> {{game.hero_1 }}</td>
+            <td> {{game.hero_2 }}</td>
+            <td> {{game.hero_3 }}</td>
+            <td> {% if game.hero_4 %}
+                    {{ game.hero_4 }}
+                {% endif %}
+            </td>
+            <td> {% if game.hero_5 %}
+                    {{ game.hero_5 }}
+                {% endif %}
+            </td>
+            <td> {{game.mastermind }}</td>
+            <td> {{game.scheme }}</td>
+            <td class="text-left">
+                {% if hero.win %}
+                    <span class="glyphicon glyphicon-ok"></span>
+                {% else %}
+                    <span class="glyphicon glyphicon-remove"></span>
+                {% endif %}
+            </td>
         </tr>
     {% endfor %}
     </tbody>
