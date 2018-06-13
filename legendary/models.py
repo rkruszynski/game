@@ -50,7 +50,7 @@ class Mastermind(models.Model):
 class Scheme(models.Model):
 
     name = models.CharField(max_length=200)
-    description = models.CharField(max_length=1000)
+    description = models.TextField(max_length=1000)
 
     def __str__(self):
         return self.name
@@ -63,6 +63,7 @@ class Villians(models.Model):
     def __str__(self):
         return self.name
 
+
 class Henchmen(models.Model):
 
     name = models.CharField(max_length=100)
@@ -70,3 +71,19 @@ class Henchmen(models.Model):
     def __str__(self):
         return self.name
 
+
+class Game(models.Model):
+
+    single_player = models.BooleanField(default=False)
+    hero_1 = models.ForeignKey(Hero, on_delete=models.PROTECT, related_name='hero_1')
+    hero_2 = models.ForeignKey(Hero, on_delete=models.PROTECT, related_name='hero_2')
+    hero_3 = models.ForeignKey(Hero, on_delete=models.PROTECT, related_name='hero_3')
+    hero_4 = models.ForeignKey(Hero, on_delete=models.PROTECT, related_name='hero_4')
+    hero_5 = models.ForeignKey(Hero, on_delete=models.PROTECT, related_name='hero_5')
+    mastermind = models.ForeignKey(Mastermind, on_delete=models.PROTECT)
+    scheme = models.ForeignKey(Scheme, on_delete=models.PROTECT)
+    win = models.BooleanField(default=True)
+    comments = models.TextField(max_length=1000)
+
+    def __str__(self):
+        return "abc"

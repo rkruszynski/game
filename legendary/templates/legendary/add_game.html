@@ -1,0 +1,20 @@
+{% extends 'legendary/base.html' %}
+
+{% block content %}
+
+<form action="" method="POST" xmlns="http://www.w3.org/1999/html">
+    {% csrf_token %}
+    <div class="form-group">
+    {% for field in form %}
+
+
+        <h5><label class="col-sm-2 label label-default">{{ field.label_tag }}</label></h5>
+        <div class="col-sm-2">{{field}}</div></br>
+
+    {% endfor %}
+    </div>
+    <div>
+    <input class="col-sm-2" type="submit" value="Submit">
+    </div>
+</form>
+{%  endblock %}
