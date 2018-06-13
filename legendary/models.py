@@ -85,5 +85,3 @@ class Game(models.Model):
     win = models.BooleanField(default=True)
     comments = models.TextField(max_length=1000, blank=True)
 
-    def __str__(self):
-        return "abc"

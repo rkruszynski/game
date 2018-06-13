@@ -22,7 +22,6 @@ urlpatterns = [
     path('add_team/', include('legendary.urls')),
     path('teams/', include('legendary.urls')),
     path('games', include('legendary.urls')),
-    # path('games/add_game', include)
     path('admin/', admin.site.urls),
     path('legendary/thanks/', include('legendary.urls')),
     path('add_mastermind/', include('legendary.urls')),
