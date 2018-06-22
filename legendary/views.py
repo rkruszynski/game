@@ -5,19 +5,21 @@ from django.http import HttpResponse, Http404, HttpResponseRedirect
 from django.template import loader
 from .forms import HeroForm, TeamForm, MastermindForm, SchemeForm, GameForm
 from django.contrib import messages
-
+from django.db.models import Q
 
 
 # Create your views here.
 
 
 def index(request):
-    heros = Hero.objects.order_by('name')
-    template = loader.get_template('legendary/index.html')
-    context = {
-        'heros': heros
-    }
-    return HttpResponse(template.render(context, request))
+
+    heros = Hero.objects.all()
+    context = {}
+    for hero in heros:
+        games = Game.objects.filter(Q(hero_1=hero.id) | Q(hero_2=hero.id) | Q(hero_3=hero.id) | Q(hero_4=hero.id) | Q(hero_5=hero.id))
+        context[hero] = len(games)
+
+    return render(request, 'legendary/index.html', {'heros': context})
 
 
 def hero_detail(request, hero_id):
@@ -125,6 +127,6 @@ def add_game(request):
     return render(request, 'legendary/add_game.html', {'form': game_form})
 
 
-def gammes_page(request):
+def games_page(request):
     games = Game.objects.all()
     return render(request, 'legendary/games_page.html', {'games': games})

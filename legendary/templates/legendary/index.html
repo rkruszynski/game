@@ -19,74 +19,92 @@
       <th scope="col">X-gene</th>
       <th scope="col">Versatile</th>
       <th scope="col">Recruitment points</th>
+      <th scope="col">Games</th>
       <th>Delete Hero</th>
 
     </tr>
   </thead>
   <tbody>
-  {% for hero in heros %}
-    <tr>
-      <th scope="row">1</th>
-        <td><a href = "/legendary/hero/{{hero.id}}/">{{hero.name}}</a></td>
-      <td>{{hero.team}}o</td>
-      <td class="text-center">{{hero.strenght}}</td>
-      <td class="text-center">{{hero.instinct}}</td>
-      <td class="text-center">{{hero.covert}}</td>
-      <td class="text-center">{{hero.tech}}</td>
-      <td class="text-center">{{hero.energy}}</td>
-      <td class="text-center">
-          {% if hero.piercing_energy%}
-                    <span class="glyphicon glyphicon-ok"></span>
-                {% else %}
-                    <span class="glyphicon glyphicon-remove"></span>
-                {% endif %}
-      </td>
-      <td class="text-center">
-          {% if hero.teleport%}
-                    <span class="glyphicon glyphicon-ok"></span>
-                {% else %}
-                    <span class="glyphicon glyphicon-remove"></span>
-                {% endif %}
-      </td>
-      <td class="text-center">
-          {% if hero.x_gene%}
-                    <span class="glyphicon glyphicon-ok"></span>
-                {% else %}
-                    <span class="glyphicon glyphicon-remove"></span>
-                {% endif %}
-      </td>
-      <td class="text-center">
-          {% if hero.versatile%}
-                    <span class="glyphicon glyphicon-ok"></span>
-                {% else %}
-                    <span class="glyphicon glyphicon-remove"></span>
-                {% endif %}
-      </td>
-      <td class="text-center">
-          {% if hero.recruitment_points > 0 %}
-            <span class="glyphicon glyphicon-star"></span>
-          {% endif %}
-                    {% if hero.recruitment_points > 1 %}
-            <span class="glyphicon glyphicon-star"></span>
-          {% endif %}
-                    {% if hero.recruitment_points > 2 %}
-            <span class="glyphicon glyphicon-star"></span>
-          {% endif %}
-                    {% if hero.recruitment_points < 3 %}
-            <span class="glyphicon glyphicon-star-empty"></span>
-          {% endif %}
-                    {% if hero.recruitment_points < 2 %}
-            <span class="glyphicon glyphicon-star-empty"></span>
-          {% endif %}
-                    {% if hero.recruitment_points < 1 %}
-            <span class="glyphicon glyphicon-star-empty"></span>
-          {% endif %}
-      </td>
-      <td>
+      <!--{% for key, value in heros.items %}-->
+      <!--abc-->
+        <!--<tr>-->
+            <!--<td class="text-left">-->
+                <!--{{ key.name }}</td>-->
+            <!--<td class="text-left"><a href = "/legendary/teams/{{key.id}}">{{ key }}</a></td>-->
+            <!--<td> value{{value}}</td>-->
+        <!--</tr>-->
+    <!--{% endfor %}-->
+  <!--</tbody>-->
 
-              <a href="/legendary/hero/delete/{{hero.id}}">
-                  <span title = "Delete hero" class="glyphicon glyphicon-remove-sign"></span>
-              </a>
+
+  {% for key, value in heros.items %}
+
+    <tr>
+      <th scope="row">{{key.id}}</th>
+        <td><a href = "/legendary/hero/{{hero.id}}/">{{key.name}}</a></td>
+      <td>{{key.team}}</td>
+      <td class="text-center">{{key.strenght}}</td>
+      <td class="text-center">{{key.instinct}}</td>
+      <td class="text-center">{{key.covert}}</td>
+      <td class="text-center">{{key.tech}}</td>
+      <td class="text-center">{{key.energy}}</td>
+      <td class="text-center">
+          {% if key.piercing_energy%}
+                    <span class="glyphicon glyphicon-ok"></span>
+                {% else %}
+                    <span class="glyphicon glyphicon-remove"></span>
+                {% endif %}
+      </td>
+      <td class="text-center">
+          {% if key.teleport%}
+                    <span class="glyphicon glyphicon-ok"></span>
+                {% else %}
+                    <span class="glyphicon glyphicon-remove"></span>
+                {% endif %}
+      </td>
+      <td class="text-center">
+          {% if key.x_gene%}
+                    <span class="glyphicon glyphicon-ok"></span>
+                {% else %}
+                    <span class="glyphicon glyphicon-remove"></span>
+                {% endif %}
+      </td>
+      <td class="text-center">
+          {% if key.versatile%}
+                    <span class="glyphicon glyphicon-ok"></span>
+                {% else %}
+                    <span class="glyphicon glyphicon-remove"></span>
+                {% endif %}
+      </td>
+      <td class="text-center">
+          {% if key.recruitment_points > 0 %}
+            <span class="glyphicon glyphicon-star"></span>
+          {% endif %}
+                    {% if key.recruitment_points > 1 %}
+            <span class="glyphicon glyphicon-star"></span>
+          {% endif %}
+                    {% if key.recruitment_points > 2 %}
+            <span class="glyphicon glyphicon-star"></span>
+          {% endif %}
+                    {% if key.recruitment_points < 3 %}
+            <span class="glyphicon glyphicon-star-empty"></span>
+          {% endif %}
+                    {% if key.recruitment_points < 2 %}
+            <span class="glyphicon glyphicon-star-empty"></span>
+          {% endif %}
+                    {% if key.recruitment_points < 1 %}
+            <span class="glyphicon glyphicon-star-empty"></span>
+          {% endif %}
+      </td>
+      <td>{{value}}</td>
+      <td>
+          <a  id="delete" href="/legendary/hero/delete/{{key.id}}">
+              {% if value %}
+              <button title = "Delete hero">Delete</button>
+              {% else %}
+              <button title = "Hero with at least one game can't be deleted!" disabled>Delete</button>
+              {% endif %}
+          </a>
 
       </td>
     </tr>
