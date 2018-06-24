@@ -89,9 +89,9 @@
       <td>
           <a  id="delete" href="/legendary/hero/delete/{{key.id}}">
               {% if value %}
-              <button title = "Delete hero">Delete</button>
-              {% else %}
               <button title = "Hero with at least one game can't be deleted!" disabled>Delete</button>
+              {% else %}
+              <button title = "Delete hero">Delete</button>
               {% endif %}
           </a>
 
