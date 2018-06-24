@@ -105,7 +105,23 @@
       </td>
         <td>
             <button> <a href="/legendary/hero/delete/{{hero.id}}">Delete me</a></button>
-        </td>
+        </tr>
+</table>
+
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th class="col-md-2">All games</th>
+            <th class="col-md-2">Hero games</th>
+            <th class="col-md-2">Win percentage</th>
+            <th class="col-md-2">Moest played with</th>
+        </tr>
+    </thead>
+        <tr>
+            <td>{{stats.all_games}}</td>
+            <td>{{ stats.games_win }}</td>
+            <td>{{ stats.win_percentage }}%</td>
+            <td>{{ stats.other_heroes}}</td>
         </tr>
 </table>
 

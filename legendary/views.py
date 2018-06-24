@@ -1,11 +1,11 @@
 from django.shortcuts import render, get_object_or_404
 
 from .models import Hero, Team, Mastermind, Scheme, Game
-from django.http import HttpResponse, Http404, HttpResponseRedirect
-from django.template import loader
+from django.http import Http404, HttpResponseRedirect
 from .forms import HeroForm, TeamForm, MastermindForm, SchemeForm, GameForm
 from django.contrib import messages
 from django.db.models import Q
+from collections import Counter
 
 
 # Create your views here.
@@ -27,7 +27,28 @@ def hero_detail(request, hero_id):
         hero = Hero.objects.get(pk=hero_id)
     except Hero.DoesNotExist:
         raise Http404("Hero does not exist!")
-    return render(request, 'legendary/hero_detail.html', {'hero': hero})
+    all_games = len(Game.objects.all())
+    games = Game.objects.filter(
+        Q(hero_1=hero.id) | Q(hero_2=hero.id) | Q(hero_3=hero.id) | Q(hero_4=hero.id) | Q(hero_5=hero.id))
+    games_win = 0
+    other_heroes = []
+    for game in games:
+        other_heroes.append([game.hero_1, game.hero_2, game.hero_3, game.hero_4, game.hero_5])
+        if game.win:
+            games_win += 1
+    win_percentage = "{0:.2f}".format(games_win/all_games*100)
+    
+
+
+    stats = {
+        'all_games': all_games,
+        'games_win': games_win,
+        'win_percentage': win_percentage,
+        'other_heroes': other_heroes,
+    }
+
+    return render(request, 'legendary/hero_detail.html', {'hero': hero,
+                                                          'stats': stats})
 
 
 def hero_delete(request, hero_id):
