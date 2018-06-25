@@ -27,24 +27,33 @@ def hero_detail(request, hero_id):
         hero = Hero.objects.get(pk=hero_id)
     except Hero.DoesNotExist:
         raise Http404("Hero does not exist!")
+
     all_games = len(Game.objects.all())
+
     games = Game.objects.filter(
         Q(hero_1=hero.id) | Q(hero_2=hero.id) | Q(hero_3=hero.id) | Q(hero_4=hero.id) | Q(hero_5=hero.id))
     games_win = 0
     other_heroes = []
     for game in games:
-        other_heroes.append([game.hero_1, game.hero_2, game.hero_3, game.hero_4, game.hero_5])
+        tmp_id_list = list(set([game.hero_1.id, game.hero_2.id, game.hero_3.id, game.hero_4.id, game.hero_5.id]))
+        tmp_id_list.remove(hero_id)  # remove player himself
+        other_heroes.append(tmp_id_list)
         if game.win:
             games_win += 1
-    win_percentage = "{0:.2f}".format(games_win/all_games*100)
-    
 
+    win_percentage = "{0:.2f}".format(games_win/len(games)*100)
+    cnt = Counter([x for y in other_heroes for x in y])
+    result = [e for e in cnt if cnt[e] == cnt.most_common()[0][1]]
+    hero_names = [Hero.objects.get(pk=x).name for x in result]
+    most_games = cnt.most_common()[0][1]
 
     stats = {
         'all_games': all_games,
+        'hero_games': len(games),
         'games_win': games_win,
         'win_percentage': win_percentage,
-        'other_heroes': other_heroes,
+        'most_games': most_games,
+        'other_heroes': hero_names,
     }
 
     return render(request, 'legendary/hero_detail.html', {'hero': hero,
