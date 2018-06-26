@@ -33,7 +33,12 @@ class Hero(models.Model):
     teleport = models.BooleanField(default=False)
     x_gene = models.BooleanField(default=False)
     versatile = models.BooleanField(default=False)
+    soaring_flight = models.BooleanField(default=False)
+    lightshow = models.BooleanField(default=False)
+    berserk = models.BooleanField(default=False)
+    split_cards = models.BooleanField(default=False)
     recruitment_points = models.PositiveIntegerField(choices=RECRUITMENT_SCALE, default=0)
+    costs = models.PositiveIntegerField(default=0)
 
     def __str__(self):
         return self.name

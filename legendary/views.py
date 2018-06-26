@@ -35,17 +35,29 @@ def hero_detail(request, hero_id):
     games_win = 0
     other_heroes = []
     for game in games:
-        tmp_id_list = list(set([game.hero_1.id, game.hero_2.id, game.hero_3.id, game.hero_4.id, game.hero_5.id]))
+        tmp_id_list = [game.hero_1.id, game.hero_2.id, game.hero_3.id]
+        try:
+            tmp_id_list.append(game.hero_4.id)
+        except:
+            pass
+        try:
+            tmp_id_list.append(game.hero_5.id)
+        except:
+            pass
+        tmp_id_list = list(set(tmp_id_list))
         tmp_id_list.remove(hero_id)  # remove player himself
         other_heroes.append(tmp_id_list)
         if game.win:
             games_win += 1
 
-    win_percentage = "{0:.2f}".format(games_win/len(games)*100)
+    win_percentage = "{0:.2f}".format(games_win/len(games)*100) if games else 0
     cnt = Counter([x for y in other_heroes for x in y])
     result = [e for e in cnt if cnt[e] == cnt.most_common()[0][1]]
     hero_names = [Hero.objects.get(pk=x).name for x in result]
-    most_games = cnt.most_common()[0][1]
+    try:
+        most_games = cnt.most_common()[0][1]
+    except:
+        most_games = 0
 
     stats = {
         'all_games': all_games,

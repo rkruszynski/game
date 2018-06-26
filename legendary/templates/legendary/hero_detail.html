@@ -122,10 +122,15 @@
             <td>{{ stats.hero_games }}</td>
             <td>{{ stats.games_win }}</td>
             <td>{{ stats.win_percentage }}%</td>
-            <td><b>{{stats.most_games}} games played with:</b><br />
+            <td>{% if stats.all_games %}
+                <b>{{stats.most_games}} games played with:</b><br />
                 {% for hero_name in stats.other_heroes %}
             - {{hero_name}}<br />
-            {% endfor %} </td>
+            {% endfor %}
+            {% else %}
+                 <b>No games played yet</b>
+            {% endif %}
+            </td>
         </tr>
 </table>
 
