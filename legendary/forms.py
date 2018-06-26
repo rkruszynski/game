@@ -19,16 +19,13 @@ class HeroForm(ModelForm):
                   'teleport',
                   'x_gene',
                   'versatile',
+                  'soaring_flight',
+                  'lightshow',
+                  'berserk',
+                  'split_cards',
                   'recruitment_points',
+                  'costs',
                   ]
-        # fields = __all__
-        # name = forms.CharField(label='Enter name', max_length=100)
-        # team = forms.CharField(label='Enter team', max_length=50)
-        # strenght = forms.IntegerField(label='strenght', max_value=14)
-        # instinct = forms.IntegerField(label='instinct', max_value=14)
-        # covert = forms.IntegerField(label='covert', max_value=14)
-        # tech = forms.IntegerField(label='tech', max_value=14)
-        # energy = forms.IntegerField(label='energy', max_value=14)
 
 
 class TeamForm(ModelForm):
