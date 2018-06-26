@@ -2,7 +2,6 @@
 
 {% block content %}
 
-{{ hero.name }}
 
 <table class="table table-striped">
     <thead>
@@ -105,7 +104,28 @@
       </td>
         <td>
             <button> <a href="/legendary/hero/delete/{{hero.id}}">Delete me</a></button>
-        </td>
+        </tr>
+</table>
+
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th class="col-md-2">All games</th>
+            <th class = "col-md-2">Hero games</th>
+            <th class="col-md-2">Win</th>
+            <th class="col-md-2">Win percentage</th>
+            <th class="col-md-2">Most played with</th>
+        </tr>
+    </thead>
+        <tr>
+            <td>{{stats.all_games}}</td>
+            <td>{{ stats.hero_games }}</td>
+            <td>{{ stats.games_win }}</td>
+            <td>{{ stats.win_percentage }}%</td>
+            <td><b>{{stats.most_games}} games played with:</b><br />
+                {% for hero_name in stats.other_heroes %}
+            - {{hero_name}}<br />
+            {% endfor %} </td>
         </tr>
 </table>
 
