@@ -2,7 +2,7 @@ from django import forms
 
 from django.forms import ModelForm
 
-from .models import Hero, Team, Mastermind, Scheme, Game
+from .models import Hero, Team, Mastermind, Scheme, Game, Henchman, Villain
 
 class HeroForm(ModelForm):
     class Meta:
@@ -49,4 +49,16 @@ class SchemeForm(ModelForm):
 class GameForm(ModelForm):
     class Meta:
         model = Game
+        fields = '__all__'
+
+
+class VillainForm(ModelForm):
+    class Meta:
+        model = Villain
+        fields = '__all__'
+
+
+class HenchmanForm(ModelForm):
+    class Meta:
+        model = Henchman
         fields = '__all__'

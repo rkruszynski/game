@@ -1,0 +1,31 @@
+{% extends 'legendary/base.html' %}
+
+{% block content %}
+
+<table class="table table-hover">
+    <thead>
+        <th>ID</th>
+        <th>Name</th>
+    <   <th>Delete</th>
+    </thead>
+
+    <tbody>
+    {% for villain in villains %}
+        <tr>
+            <td class="text-left">
+                {{ villain.id }}</td>
+            <td> {{villain.name}}</td>
+            <td>
+                <button>
+                    <a href="/villains/delete/{{villain.id}}">Delete</a>
+                </button>
+            </td>
+        </tr>
+    {% endfor %}
+    </tbody>
+
+</table>
+<button>
+    <a href="/legendary/add_villain">Add villain</a>
+</button>
+{% endblock %}
