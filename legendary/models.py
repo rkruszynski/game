@@ -61,7 +61,7 @@ class Scheme(models.Model):
         return self.name
 
 
-class Villians(models.Model):
+class Villain(models.Model):
 
     name = models.CharField(max_length=100)
 
@@ -69,7 +69,7 @@ class Villians(models.Model):
         return self.name
 
 
-class Henchmen(models.Model):
+class Henchman(models.Model):
 
     name = models.CharField(max_length=100)
 
@@ -86,7 +86,12 @@ class Game(models.Model):
     hero_4 = models.ForeignKey(Hero, on_delete=models.PROTECT, related_name='hero_4', blank=True, null=True)
     hero_5 = models.ForeignKey(Hero, on_delete=models.PROTECT, related_name='hero_5', blank=True, null=True)
     mastermind = models.ForeignKey(Mastermind, on_delete=models.PROTECT)
+    villains_1 = models.ForeignKey(Villain, on_delete=models.PROTECT, related_name='villains_1')
+    villains_2 = models.ForeignKey(Villain, on_delete=models.PROTECT, related_name='villains_2', blank=True, null=True)
+    villains_3 = models.ForeignKey(Villain, on_delete=models.PROTECT, related_name='villains_3', blank=True, null=True)
+    villains_4 = models.ForeignKey(Villain, on_delete=models.PROTECT, related_name='villains_4', blank=True, null=True)
+    henchman_1 = models.ForeignKey(Henchman, on_delete=models.PROTECT, related_name='henchman_1')
+    henchman_2 = models.ForeignKey(Henchman, on_delete=models.PROTECT, related_name='henchman_2', blank=True, null=True)
     scheme = models.ForeignKey(Scheme, on_delete=models.PROTECT)
     win = models.BooleanField(default=True)
     comments = models.TextField(max_length=1000, blank=True)
-

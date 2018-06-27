@@ -1,8 +1,8 @@
 from django.shortcuts import render, get_object_or_404
 
-from .models import Hero, Team, Mastermind, Scheme, Game
+from .models import Hero, Team, Mastermind, Scheme, Game, Villain, Henchman
 from django.http import Http404, HttpResponseRedirect
-from .forms import HeroForm, TeamForm, MastermindForm, SchemeForm, GameForm
+from .forms import HeroForm, TeamForm, MastermindForm, SchemeForm, GameForm, VillainForm, HenchmanForm
 from django.contrib import messages
 from django.db.models import Q
 from collections import Counter
@@ -172,3 +172,45 @@ def add_game(request):
 def games_page(request):
     games = Game.objects.all()
     return render(request, 'legendary/games_page.html', {'games': games})
+
+
+def villains(request):
+    villains = Villain.objects.all()
+    return render(request, 'legendary/villains_page.html', {'villains': villains})
+
+
+def add_villain(request):
+    if request.method == "POST":
+        villain_form = VillainForm(request.POST)
+        villain_form.save()
+        return HttpResponseRedirect('/legendary/villains')
+    else:
+        villain_form = VillainForm()
+    return render(request, 'legendary/add_villain.html', {'form':villain_form})
+
+
+def delete_villain(request, villain_id):
+    obj = get_object_or_404(Villain, pk=villain_id)
+    if request.method == "POST":
+        obj.delete()
+        messages.success(request, "This Villain was succesfully deleted")
+        return HttpResponseRedirect('/legendary/villains')
+    context = {
+        "object": obj
+    }
+    return render(request, "legendary/confirm_delete.html", context)
+
+
+def henchman(request):
+    henchman = Henchman.objects.all()
+    return render(request, 'legendary/henchman_page.html', {'henchmen': henchman})
+
+
+def add_henchman(request):
+    if request.method == "POST":
+        henchman_form = HenchmanForm(request.POST)
+        henchman_form.save()
+        return HttpResponseRedirect('/legendary/henchmen')
+    else:
+        henchman_form = VillainForm()
+    return render(request, 'legendary/add_villain.html', {'form':henchman_form})
