@@ -79,6 +79,25 @@ class Henchman(models.Model):
 
 class Game(models.Model):
 
+    LUCK_SCALE = (
+        (None, 'Can\'t be set'),
+        (1, 'Very bad luck'),
+        (2, 'Should be better'),
+        (3, 'Just ok'),
+        (4, 'It was lucky'),
+        (5, 'We had a lot of luck!'),
+    )
+
+    CLOSE_TO_WIN_SCALE = (
+        (0, 'Can\'t be set'),
+        (1, 'Not even started!'),
+        (2, 'Just in dreams'),
+        (3, 'Had some hope, but not so close'),
+        (4, 'More luck and probably winning'),
+        (5, 'Almost! Almost winning!'),
+        (6, 'Win!'),
+    )
+
     single_player = models.BooleanField(default=False)
     hero_1 = models.ForeignKey(Hero, on_delete=models.PROTECT, related_name='hero_1')
     hero_2 = models.ForeignKey(Hero, on_delete=models.PROTECT, related_name='hero_2')
@@ -94,4 +113,6 @@ class Game(models.Model):
     henchman_2 = models.ForeignKey(Henchman, on_delete=models.PROTECT, related_name='henchman_2', blank=True, null=True)
     scheme = models.ForeignKey(Scheme, on_delete=models.PROTECT)
     win = models.BooleanField(default=True)
+    luck = models.PositiveIntegerField(choices=LUCK_SCALE, default=None, blank=True, null=True)
+    difficulty = models.IntegerField(choices=CLOSE_TO_WIN_SCALE, default=None, blank=True, null=True)
     comments = models.TextField(max_length=1000, blank=True)
