@@ -2,18 +2,40 @@
 
 {% block content %}
 
-<form action="" method="POST" xmlns="http://www.w3.org/1999/html">
+<form action="" method="POST" >
     {% csrf_token %}
     <div class="form-group">
+        <h5><label class="col-sm-2 label label-default" >{{ form.single_player.label_tag }} </label></h5>
+        <div class="col-sm-2" onclick="javascript:clearform();">{{form.single_player}}</div>
+         <br />
     {% for field in form %}
+        {% ifnotequal field.label "Single player" %}
 
-
-        <h5><label class="col-sm-2 label label-default">{{ field.label_tag }}</label></h5>
-        <div class="col-sm-2">{{field}}</div>
+        <h5><label class="col-sm-2 label label-default" >{{ field.label_tag }} </label></h5>
+        <div class="col-sm-2" >{{field}}</div>
         <br />
-
+    {% endifnotequal  %}
     {% endfor %}
     </div>
     <input class="col-sm-2" type="submit" value="Submit">
 </form>
+<script type="text/javascript">
+function clearform(){
+var single_game = document.getElementById("id_single_player").checked
+if (single_game==true) {
+    document.getElementById("id_hero_4").value="";
+    document.getElementById("id_hero_4").disabled=true;
+    document.getElementById("id_hero_5").value="";
+    document.getElementById("id_hero_5").disabled=true;
+    }
+    else {
+    document.getElementById("id_hero_4").disabled=false;
+    document.getElementById("id_hero_5").disabled=false;
+    }
+}
+</script>
+
 {%  endblock %}
+
+
+
