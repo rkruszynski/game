@@ -69,7 +69,9 @@ def hero_detail(request, hero_id):
     }
 
     return render(request, 'legendary/hero_detail.html', {'hero': hero,
-                                                          'stats': stats})
+                                                          'stats': stats,
+                                                          'games': games},
+                  )
 
 
 def hero_delete(request, hero_id):

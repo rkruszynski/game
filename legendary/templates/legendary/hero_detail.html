@@ -106,19 +106,19 @@
             <button> <a href="/legendary/hero/delete/{{hero.id}}">Delete me</a></button>
         </tr>
 </table>
-
+<hr><hr>
 <table class="table table-striped">
     <thead>
         <tr>
             <th class="col-md-2">All games</th>
-            <th class = "col-md-2">Hero games</th>
+            <th class="col-md-2">Hero games</th>
             <th class="col-md-2">Win</th>
             <th class="col-md-2">Win percentage</th>
             <th class="col-md-2">Most played with</th>
         </tr>
     </thead>
         <tr>
-            <td>{{stats.all_games}}</td>
+            <td>{{ stats.all_games}}</td>
             <td>{{ stats.hero_games }}</td>
             <td>{{ stats.games_win }}</td>
             <td>{{ stats.win_percentage }}%</td>
@@ -132,6 +132,40 @@
             {% endif %}
             </td>
         </tr>
+</table>
+<hr><hr>
+
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th class="col-2">Hero 1</th>
+            <th class="col-2">Hero 2</th>
+            <th class="col-2">Hero 3</th>
+            <th class="col2">Hero 4</th>
+            <th class="col-2">Hero 5</th>
+            <th class="col-2">Mastermind</th>
+            <th class="col-2">Scheme</th>
+            <th class="col-2">Win</th>
+        </tr>
+    </thead>
+    {% for game in games %}
+    <tr>
+        <td>{{game.hero_1}}</td>
+        <td>{{game.hero_2}}</td>
+        <td>{{game.hero_3}}</td>
+        <td>
+            {% if game.hero_4 %}
+                {{game.hero4}}</td>
+            {% endif %}
+        <td>
+            {% if game.hero_5 %}
+                {{game.hero5}}</td>
+            {% endif %}</td>
+        <td>{{game.mastermind}}</td>
+        <td>{{game.scheme}}</td>
+        <td>{{game.win}}</td>
+    </tr>
+    {% endfor %}
 </table>
 
 {% endblock %}
