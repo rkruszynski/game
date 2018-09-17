@@ -302,7 +302,7 @@ def statistics(request):
     best_heros = {}
     for hero in hero_effectiveness:
         if hero_effectiveness[hero] == max_effectiveness:
-            best_heros[hero] = [hero_effectiveness[hero]*100, hero_games[hero]['games_won'], hero_games[hero]['games']]
+            best_heros[hero] = ["{0:.2f}".format(hero_effectiveness[hero]*100), hero_games[hero]['games_won'], hero_games[hero]['games']]
 
 
     games_stats = {'games': len(games),
