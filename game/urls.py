@@ -25,13 +25,13 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('legendary/thanks/', include('legendary.urls')),
     path('add_mastermind/', include('legendary.urls')),
-    path('/villains', include('legendary.urls')),
-    path('/villains/delete/<int>', include('legendary.urls')),
+    path('villains', include('legendary.urls')),
+    path('villains/delete/<int>', include('legendary.urls')),
     path('henchman/', include('legendary.urls')),
     path('add_villain/', include('legendary.urls')),
     path('add_henchman/', include('legendary.urls')),
     path('masterminds/', include('legendary.urls')),
     path('add_scheme/', include('legendary.urls')),
     path('schemes/', include('legendary.urls')),
-
+    path('statistics/', include('legendary.urls')),
 ]

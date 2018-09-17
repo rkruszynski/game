@@ -6,6 +6,7 @@ from .forms import HeroForm, TeamForm, MastermindForm, SchemeForm, GameForm, Vil
 from django.contrib import messages
 from django.db.models import Q
 from collections import Counter
+import operator
 
 
 # Create your views here.
@@ -216,3 +217,111 @@ def add_henchman(request):
     else:
         henchman_form = VillainForm()
     return render(request, 'legendary/add_villain.html', {'form':henchman_form})
+
+
+def statistics(request):
+    games = Game.objects.all()
+    games_won = len([x for x in games if x.win])
+    solo_games = len([x for x in games if x.single_player])
+    games_won_percentege = "{0:.2f}".format(games_won/len(games)*100) if games else 0
+    solo_games_percentege = "{0:.2f}".format(solo_games / len(games) * 100) if games else 0
+    heros_played = []
+    heros_all = Hero.objects.all()
+    for game in games:
+        heros_played.append(game.hero_1)
+        heros_played.append(game.hero_2)
+        heros_played.append(game.hero_3)
+        if game.hero_4:
+            heros_played.append(game.hero_4)
+        if game.hero_5:
+            heros_played.append(game.hero_5)
+    most_played_heros = set([hero.name for hero in heros_played if heros_played.count(hero) == Counter(heros_played).most_common()[0][1]])
+    heros_used_percentage = "{0:.0f}".format(len(set(heros_played))/len(heros_all)*100) if heros_all else 0
+    heros_all_count = len(heros_all)
+
+    hero_games = {}
+    hero_effectiveness = {}
+    for game in games:
+        if game.hero_1.name in hero_games:
+            hero_games[game.hero_1.name]['games'] += 1
+            if game.win:
+                hero_games[game.hero_1.name]['games_won'] += 1
+        else:
+            hero_games[game.hero_1.name] = {'games': 1,
+                                            'games_won': 0}
+            if game.win:
+                hero_games[game.hero_1.name]['games_won'] += 1
+
+        if game.hero_2.name in hero_games:
+            hero_games[game.hero_2.name]['games'] += 1
+            if game.win:
+                hero_games[game.hero_2.name]['games_won'] += 1
+        else:
+            hero_games[game.hero_2.name] = {'games': 1,
+                                            'games_won': 0}
+            if game.win:
+                hero_games[game.hero_2.name]['games_won'] += 1
+
+        if game.hero_3.name in hero_games:
+            hero_games[game.hero_3.name]['games'] += 1
+            if game.win:
+                hero_games[game.hero_3.name]['games_won'] += 1
+        else:
+            hero_games[game.hero_3.name] = {'games': 1,
+                                            'games_won': 0}
+            if game.win:
+                hero_games[game.hero_3.name]['games_won'] += 1
+
+        if game.hero_4:
+            if game.hero_4.name in hero_games:
+                hero_games[game.hero_4.name]['games'] += 1
+                if game.win:
+                    hero_games[game.hero_4.name]['games_won'] += 1
+            else:
+                hero_games[game.hero_4.name] = {'games': 1,
+                                                'games_won': 0}
+                if game.win:
+                    hero_games[game.hero_4.name]['games_won'] += 1
+
+        if game.hero_5:
+            if game.hero_5.name in hero_games:
+                hero_games[game.hero_5.name]['games'] += 1
+                if game.win:
+                    hero_games[game.hero_5.name]['games_won'] += 1
+            else:
+                hero_games[game.hero_5.name] = {'games': 1,
+                                                'games_won': 0}
+                if game.win:
+                    hero_games[game.hero_5.name]['games_won'] += 1
+
+    for hero in hero_games:
+        hero_effectiveness[hero] = hero_games[hero]['games_won'] / hero_games[hero]['games']
+
+    max_effectiveness = max(hero_effectiveness.items(), key=operator.itemgetter(1))[1]
+
+    best_heros = {}
+    for hero in hero_effectiveness:
+        if hero_effectiveness[hero] == max_effectiveness:
+            best_heros[hero] = [hero_effectiveness[hero]*100, hero_games[hero]['games_won'], hero_games[hero]['games']]
+
+
+    games_stats = {'games': len(games),
+                   'games_won': games_won,
+                   'percent_win': games_won_percentege,
+                   'solo_games': solo_games,
+                   'solo_games_percentege': solo_games_percentege,
+    }
+
+    heros_stats = {
+        'heros_used_count': len(set(heros_played)),
+        'heros_all_count': heros_all_count,
+        'heros_used_percentage': heros_used_percentage,
+        'most_played_heros': most_played_heros,
+        'most_played_heros_games_count': Counter(heros_played).most_common()[0][1],
+        'hero_eff': best_heros,
+    }
+
+    return render(request, 'legendary/statistics.html', {'games': games_stats,
+                                                         'heros_stats': heros_stats,
+                                                         }
+                  )
