@@ -150,7 +150,7 @@ def add_scheme(request):
     if request.method == "POST":
         scheme_form = SchemeForm(request.POST)
         scheme_form.save()
-        schemes = Scheme.objects.order_by('name')
+        # schemes = Scheme.objects.order_by('name')
         return HttpResponseRedirect('schemes')
     else:
         scheme_form = SchemeForm()
@@ -216,15 +216,18 @@ def add_henchman(request):
         return HttpResponseRedirect('/legendary/henchmen')
     else:
         henchman_form = VillainForm()
-    return render(request, 'legendary/add_villain.html', {'form':henchman_form})
+    return render(request, 'legendary/add_villain.html', {'form': henchman_form})
 
 
 def statistics(request):
     games = Game.objects.all()
     games_won = len([x for x in games if x.win])
-    solo_games = len([x for x in games if x.single_player])
+    solo_games = [x for x in games if x.single_player]
+    solo_games_win = len([x for x in solo_games if x.win])
+    non_solo_games = [x for x in games if not x.single_player]
+    non_solo_games_win = len([x for x in non_solo_games if x.win])
     games_won_percentege = "{0:.2f}".format(games_won/len(games)*100) if games else 0
-    solo_games_percentege = "{0:.2f}".format(solo_games / len(games) * 100) if games else 0
+    solo_games_percentege = "{0:.2f}".format(len(solo_games) / len(games) * 100) if games else 0
     heros_played = []
     heros_all = Hero.objects.all()
     for game in games:
@@ -239,8 +242,10 @@ def statistics(request):
     heros_used_percentage = "{0:.0f}".format(len(set(heros_played))/len(heros_all)*100) if heros_all else 0
     heros_all_count = len(heros_all)
 
+    non_played_heros = [hero.name for hero in heros_all if hero not in heros_played]
     hero_games = {}
     hero_effectiveness = {}
+
     for game in games:
         if game.hero_1.name in hero_games:
             hero_games[game.hero_1.name]['games'] += 1
@@ -304,12 +309,18 @@ def statistics(request):
         if hero_effectiveness[hero] == max_effectiveness:
             best_heros[hero] = ["{0:.2f}".format(hero_effectiveness[hero]*100), hero_games[hero]['games_won'], hero_games[hero]['games']]
 
+    masterminds_played = Counter([x.mastermind for x in games]).most_common(1)
+
 
     games_stats = {'games': len(games),
                    'games_won': games_won,
                    'percent_win': games_won_percentege,
-                   'solo_games': solo_games,
+                   'solo_games': len(solo_games),
                    'solo_games_percentege': solo_games_percentege,
+                   'solo_games_win': solo_games_win,
+                   'solo_games_win_percentage': "{0:.2f}".format(solo_games_win/len(solo_games)*100),
+                   'non_solo_games_win': non_solo_games_win,
+                   'non_solo_games_win_percentage': "{0:.2f}".format(non_solo_games_win/len(non_solo_games)*100),
     }
 
     heros_stats = {
@@ -318,10 +329,17 @@ def statistics(request):
         'heros_used_percentage': heros_used_percentage,
         'most_played_heros': most_played_heros,
         'most_played_heros_games_count': Counter(heros_played).most_common()[0][1],
+        'non_played_heros': non_played_heros,
         'hero_eff': best_heros,
+    }
+
+    mastermind_stats = {
+        'masterminds_played': masterminds_played,
+
     }
 
     return render(request, 'legendary/statistics.html', {'games': games_stats,
                                                          'heros_stats': heros_stats,
+                                                         'mastermind_stats': mastermind_stats,
                                                          }
                   )
