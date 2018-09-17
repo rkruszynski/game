@@ -98,7 +98,23 @@ class Game(models.Model):
         (6, 'Win!'),
     )
 
+    NUMBER_OF_PLAYERS = (
+        (1, 'Solo game'),
+        (2, 'Two'),
+        (3, 'Three'),
+        (4, 'Four'),
+        (5, 'Five'),
+        (6, 'Six'),
+    )
+
+    def default_players(self):
+        if self.single_player:
+            return 1
+        else:
+            return 2
+
     single_player = models.BooleanField(default=False)
+    number_of_players = models.PositiveIntegerField(choices=NUMBER_OF_PLAYERS, blank=True, null=True)
     hero_1 = models.ForeignKey(Hero, on_delete=models.PROTECT, related_name='hero_1')
     hero_2 = models.ForeignKey(Hero, on_delete=models.PROTECT, related_name='hero_2')
     hero_3 = models.ForeignKey(Hero, on_delete=models.PROTECT, related_name='hero_3')
@@ -116,3 +132,9 @@ class Game(models.Model):
     luck = models.PositiveIntegerField(choices=LUCK_SCALE, default=None, blank=True, null=True)
     difficulty = models.IntegerField(choices=CLOSE_TO_WIN_SCALE, default=None, blank=True, null=True)
     comments = models.TextField(max_length=1000, blank=True)
+
+    def save(self, *args, **kwargs):
+        if not self.number_of_players:
+            self.number_of_players = self.default_players()
+        super(Game, self).save(*args, **kwargs)
+

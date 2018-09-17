@@ -6,6 +6,7 @@
     <thead>
         <th>ID</th>
         <th>Singleplayer</th>
+        <th>Number of players</th>
         <th>Hero 1</th>
         <th>Hero 2</th>
         <th>Hero 3</th>
@@ -28,6 +29,7 @@
                     No
                 {% endif %}
             </td>
+            <td>{{game.number_of_players }}</td>
             <td> {{game.hero_1 }}</td>
             <td> {{game.hero_2 }}</td>
             <td> {{game.hero_3 }}</td>
