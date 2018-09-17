@@ -297,12 +297,12 @@ def statistics(request):
     for hero in hero_games:
         hero_effectiveness[hero] = hero_games[hero]['games_won'] / hero_games[hero]['games']
 
-    foo = max(hero_effectiveness.items(), key=operator.itemgetter(1))[1]
+    max_effectiveness = max(hero_effectiveness.items(), key=operator.itemgetter(1))[1]
 
-    abc = {}
+    best_heros = {}
     for hero in hero_effectiveness:
-        if hero_effectiveness[hero] == foo:
-            abc[hero] = [ hero_effectiveness[hero]*100, hero_games[hero]['games_won'], hero_games[hero]['games']]
+        if hero_effectiveness[hero] == max_effectiveness:
+            best_heros[hero] = [hero_effectiveness[hero]*100, hero_games[hero]['games_won'], hero_games[hero]['games']]
 
 
     games_stats = {'games': len(games),
@@ -318,7 +318,7 @@ def statistics(request):
         'heros_used_percentage': heros_used_percentage,
         'most_played_heros': most_played_heros,
         'most_played_heros_games_count': Counter(heros_played).most_common()[0][1],
-        'hero_eff': abc,
+        'hero_eff': best_heros,
     }
 
     return render(request, 'legendary/statistics.html', {'games': games_stats,
