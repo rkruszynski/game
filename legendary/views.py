@@ -222,7 +222,9 @@ def add_henchman(request):
 def statistics(request):
     games = Game.objects.all()
     games_won = len([x for x in games if x.win])
+    solo_games = len([x for x in games if x.single_player])
     games_won_percentege = "{0:.2f}".format(games_won/len(games)*100) if games else 0
+    solo_games_percentege = "{0:.2f}".format(solo_games / len(games) * 100) if games else 0
     heros_played = []
     heros_all = Hero.objects.all()
     for game in games:
@@ -234,7 +236,7 @@ def statistics(request):
         if game.hero_5:
             heros_played.append(game.hero_5)
     most_played_heros = set([hero.name for hero in heros_played if heros_played.count(hero) == Counter(heros_played).most_common()[0][1]])
-    heros_used_percentage = "{0:.0f}".format(len(heros_played)/len(heros_all)*100) if heros_all else 0
+    heros_used_percentage = "{0:.0f}".format(len(set(heros_played))/len(heros_all)*100) if heros_all else 0
     heros_all_count = len(heros_all)
 
     hero_games = {}
@@ -300,25 +302,24 @@ def statistics(request):
     abc = {}
     for hero in hero_effectiveness:
         if hero_effectiveness[hero] == foo:
-            abc[hero] = {'effectiveness': False,
-                         'games': False}
-            abc[hero]['effectiveness'] = hero_effectiveness[hero]*100
-            abc[hero]['games'] = hero_games[hero]['games']
+            abc[hero] = [ hero_effectiveness[hero]*100, hero_games[hero]['games_won'], hero_games[hero]['games']]
+
 
     games_stats = {'games': len(games),
-                  'games_won': games_won,
-                  'percent_win': games_won_percentege,
+                   'games_won': games_won,
+                   'percent_win': games_won_percentege,
+                   'solo_games': solo_games,
+                   'solo_games_percentege': solo_games_percentege,
     }
 
     heros_stats = {
-        'heros_used_count': len(heros_played),
+        'heros_used_count': len(set(heros_played)),
         'heros_all_count': heros_all_count,
         'heros_used_percentage': heros_used_percentage,
         'most_played_heros': most_played_heros,
         'most_played_heros_games_count': Counter(heros_played).most_common()[0][1],
         'hero_eff': abc,
     }
-
 
     return render(request, 'legendary/statistics.html', {'games': games_stats,
                                                          'heros_stats': heros_stats,
