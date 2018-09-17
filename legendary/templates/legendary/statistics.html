@@ -1,0 +1,45 @@
+{% extends 'legendary/base.html' %}
+
+{% block content %}
+<h3>Games:</h3>
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th class="col-2">All games</th>
+            <th class="col-2">Games won (percent)</th>
+            <th class="col-2"></th>
+            <th class="col-2"></th>
+        </tr>
+    </thead>
+    <tr>
+        <td>{{ games.games}}</td>
+        <td>{{ games.games_won}} ({{games.percent_win}}%)</td>
+        <td>{{games.heros}}</td>
+        <td></td>
+    </tr>
+</table>
+
+<h3>Heros:</h3>
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th class="col-2">Heros used</th>
+            <th class="col-2">Most popular heros</th>
+            <th class="col-2">It will be difficult</th>
+            <th class="col-2"></th>
+
+        </tr>
+    </thead>
+    <tr>
+        <td>{{ heros_stats.heros_used_count}} from {{heros_stats.heros_all_count}} heros ({{heros_stats.heros_used_percentage}}%)</td>
+        <td>{{ heros_stats.most_played_heros_games_count}} games played by:<br>
+        {% for hero in heros_stats.most_played_heros %}
+        - {{hero}}<br>
+        {% endfor %}</td>
+
+    </tr>
+</table>
+{% for hero in heros_stats.hero_eff %}
+{{ heros_stats.hero_eff }}
+{% endfor %}
+{% endblock %}
