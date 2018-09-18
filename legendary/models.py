@@ -1,8 +1,4 @@
 from django.db import models
-from django.core.validators import MaxValueValidator, validate_comma_separated_integer_list
-
-# Create your models here.
-
 
 
 class Team(models.Model):
@@ -137,4 +133,3 @@ class Game(models.Model):
         if not self.number_of_players:
             self.number_of_players = self.default_players()
         super(Game, self).save(*args, **kwargs)
-

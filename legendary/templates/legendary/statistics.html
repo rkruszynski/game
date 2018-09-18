@@ -8,14 +8,16 @@
             <th class="col-2">All games</th>
             <th class="col-2">Games won (percent)</th>
             <th class="col-2">Solo games (percent)</th>
-            <th class="col-2"></th>
+            <th class="col-2">Solo games win (percent)</th>
+            <th class="col-2">Non solo games win (percentage)</th>
         </tr>
     </thead>
     <tr>
         <td>{{ games.games}}</td>
         <td>{{ games.games_won}} ({{games.percent_win}}%)</td>
-        <td>{{games.solo_games }} ({{ games.solo_games_percentege }}%)</td>
-        <td></td>
+        <td>{{ games.solo_games }} ({{ games.solo_games_percentege }}%)</td>
+        <td>{{ games.solo_games_win }} ({{ games.solo_games_win_percentage }}%)</td>
+        <td> {{ games.non_solo_games_win }} ({{games.non_solo_games_win_percentage }}%) </td>
     </tr>
 </table>
 
@@ -25,6 +27,7 @@
         <tr>
             <th class="col-2">Heros used</th>
             <th class="col-2">Most popular heros</th>
+            <th>Non played heros</th>
             <th class="col-2">Best Hero</th>
             <th class="col-2">ABCD</th>
 
@@ -36,10 +39,30 @@
             {% for hero in heros_stats.most_played_heros %}
             - {{hero}}<br>
         {% endfor %}</td>
+        <td> {% for hero in heros_stats.non_played_heros %}
+        - {{hero }}<br>
+        {% endfor %} </td>
         <td>{% for key, value in heros_stats.hero_eff.items %}
             - {{key}} won {{value.1 }} games out of {{value.2}} ({{value.0}}%)<br>
             {% endfor %}</td>
         <td></td>
+    </tr>
+</table>
+
+
+<h3>Masterminds</h3>
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th class="col-2">Most popular</th>
+            <th class="col-2"></th>
+
+        </tr>
+    </thead>
+    <tr>
+        <td>{{ mastermind_stats.masterminds_played.0.0}} ({{ mastermind_stats.masterminds_played.0.1}} games)</td>
+        <td></td>
+
     </tr>
 </table>
 {% endblock %}
