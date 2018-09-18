@@ -227,7 +227,8 @@ def statistics(request):
     non_solo_games = [x for x in games if not x.single_player]
     non_solo_games_win = len([x for x in non_solo_games if x.win])
     games_won_percentege = "{0:.2f}".format(games_won/len(games)*100) if games else 0
-    solo_games_percentege = "{0:.2f}".format(len(solo_games) / len(games) * 100) if games else 0
+    solo_games_percentege = "{0:.2f}".format(len(solo_games) / len(games) * 100) if solo_games else 0
+    non_solo_games_win_percentage = "{0:.2f}".format(non_solo_games_win/len(non_solo_games)*100) if non_solo_games else 0
     heros_played = []
     heros_all = Hero.objects.all()
     for game in games:
@@ -313,14 +314,14 @@ def statistics(request):
 
 
     games_stats = {'games': len(games),
-                   'games_won': games_won,
-                   'percent_win': games_won_percentege,
-                   'solo_games': len(solo_games),
-                   'solo_games_percentege': solo_games_percentege,
-                   'solo_games_win': solo_games_win,
-                   'solo_games_win_percentage': "{0:.2f}".format(solo_games_win/len(solo_games)*100),
-                   'non_solo_games_win': non_solo_games_win,
-                   'non_solo_games_win_percentage': "{0:.2f}".format(non_solo_games_win/len(non_solo_games)*100),
+        'games_won': games_won,
+        'percent_win': games_won_percentege,
+        'solo_games': len(solo_games),
+        'solo_games_percentege': solo_games_percentege,
+        'solo_games_win': solo_games_win,
+        'solo_games_win_percentage': "{0:.2f}".format(solo_games_win/len(solo_games)*100),
+        'non_solo_games_win': non_solo_games_win,
+        'non_solo_games_win_percentage': non_solo_games_win_percentage,
     }
 
     heros_stats = {
