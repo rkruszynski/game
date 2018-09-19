@@ -62,3 +62,7 @@ class HenchmanForm(ModelForm):
     class Meta:
         model = Henchman
         fields = '__all__'
+
+
+class SelectHeroForm(forms.Form):
+    field = forms.IntegerField(max_value=50)

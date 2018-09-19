@@ -2,11 +2,12 @@ from django.shortcuts import render, get_object_or_404
 
 from .models import Hero, Team, Mastermind, Scheme, Game, Villain, Henchman
 from django.http import Http404, HttpResponseRedirect
-from .forms import HeroForm, TeamForm, MastermindForm, SchemeForm, GameForm, VillainForm, HenchmanForm
+from .forms import HeroForm, TeamForm, MastermindForm, SchemeForm, GameForm, VillainForm, HenchmanForm, SelectHeroForm
 from django.contrib import messages
 from django.db.models import Q
 from collections import Counter
 import operator
+from django.shortcuts import redirect
 
 
 # Create your views here.
@@ -138,12 +139,12 @@ def masterminds_page(request):
 def add_mastermind(request):
     if request.method == 'POST':
         mastermind_form = MastermindForm(request.POST)
-        messages.success(request, ('Thank you'))
+        messages.success(request, 'Thank you')
         mastermind_form.save()
         return HttpResponseRedirect('masterminds')
     else:
         mastermind_form = MastermindForm()
-    return render(request, 'legendary/add_mastermind.html', {'form':mastermind_form})
+    return render(request, 'legendary/add_mastermind.html', {'form': mastermind_form})
 
 
 def add_scheme(request):
@@ -154,7 +155,7 @@ def add_scheme(request):
         return HttpResponseRedirect('schemes')
     else:
         scheme_form = SchemeForm()
-    return render(request, 'legendary/add_scheme.html', {'form':scheme_form})
+    return render(request, 'legendary/add_scheme.html', {'form': scheme_form})
 
 
 def schemes_page(request):
@@ -344,3 +345,12 @@ def statistics(request):
                                                          'mastermind_stats': mastermind_stats,
                                                          }
                   )
+
+def select_hero(request):
+    select_hero_form = SelectHeroForm(request.POST or None, initial={'field': 'field'})
+    if request.method == 'POST':
+        # hero = Hero.objects.get(int(select_hero_form)+1)
+        hero = int(select_hero_form) + 1
+    else:
+        hero = 55
+    return redirect('http://localhost:8000/legendary/hero/{}/'.format(hero))

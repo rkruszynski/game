@@ -1,0 +1,10 @@
+{% extends 'legendary/base.html' %}
+
+{% block content %}
+
+<form action="." method="POST" enctype="application/x-www-form-urlencoded">
+    {% csrf_token %}
+    (( SelectHeroForm.field }}
+    <input type="submit" value="Submit" class="btn btn-confirm">
+</form>
+{%  endblock %}

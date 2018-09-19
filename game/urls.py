@@ -34,4 +34,5 @@ urlpatterns = [
     path('add_scheme/', include('legendary.urls')),
     path('schemes/', include('legendary.urls')),
     path('statistics/', include('legendary.urls')),
+    path('select_hero/', include('legendary.urls')),
 ]
