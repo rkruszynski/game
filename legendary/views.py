@@ -6,7 +6,10 @@ from .forms import HeroForm, TeamForm, MastermindForm, SchemeForm, GameForm, Vil
 from django.contrib import messages
 from django.db.models import Q
 from collections import Counter
+from .utils import skills_combined
+from .settings import SHOW_BEST_TEAM_BY_NAME
 import operator
+import time
 
 
 # Create your views here.
@@ -217,6 +220,53 @@ def add_henchman(request):
     else:
         henchman_form = VillainForm()
     return render(request, 'legendary/add_villain.html', {'form': henchman_form})
+
+def hero_best_team(request, hero_id):
+
+    heros_attributes = {}
+    heros = Hero.objects.all()
+    for hero in heros:
+        if SHOW_BEST_TEAM_BY_NAME:
+            heros_attributes[hero.name] = [hero.strenght, hero.instinct, hero.covert, hero.tech, hero.energy]
+            current_hero = Hero.objects.get(pk=hero_id).name
+        else:
+            heros_attributes[hero.id] = [hero.strenght, hero.instinct, hero.covert, hero.tech, hero.energy]
+            current_hero = hero_id
+
+
+    all_teams = skills_combined(heros_attributes, current_hero)
+    stats = {}
+    with open ('newfile.txt', 'w') as newfile:
+        for i in range(len(all_teams[:500])):
+            hero1 = Hero.objects.get(pk=all_teams[i][1][0])
+            hero2 = Hero.objects.get(pk=all_teams[i][1][1])
+            hero3 = Hero.objects.get(pk=all_teams[i][1][2])
+            stats[i] = {'value': all_teams[i][0],
+                        'hero1': hero1.name,
+                        'hero2': hero2.name,
+                        'hero3': hero3.name,
+                        'strenght': sum([hero1.strenght, hero2.strenght, hero3.strenght]),
+                        'instinct': sum([hero1.instinct, hero2.instinct, hero3.instinct]),
+                        'covert': sum([hero1.covert, hero2.covert, hero3.covert]),
+                        'tech': sum([hero1.tech, hero2.tech, hero3.tech]),
+                        'energy': sum([hero1.energy, hero2.energy, hero3.energy]),
+                        'piercing_energy': sum([hero1.piercing_energy, hero2.piercing_energy, hero3.piercing_energy]),
+                        'teleport': sum([hero1.teleport, hero2.teleport, hero3.teleport]),
+                        'x_gene': sum([hero1.x_gene, hero2.x_gene, hero3.x_gene]),
+                        'versatile': sum([hero1.versatile, hero2.versatile, hero3.versatile]),
+                        'soaring_flight': sum([hero1.soaring_flight, hero2.soaring_flight, hero3.soaring_flight]),
+                        'lightshow': sum([hero1.lightshow, hero2.lightshow, hero3.lightshow]),
+                        'berserk': sum([hero1.berserk, hero2.berserk, hero3.berserk]),
+                        'split_cards': sum([hero1.split_cards, hero2.split_cards, hero3.split_cards]),
+
+                        }
+
+
+            newfile.write(time.strftime("%Y-%m-%d %H:%M:%S", time.gmtime()))
+            newfile.write('\n')
+
+
+    return render(request, 'legendary/hero_best_team.html', {'heros': stats})
 
 
 def statistics(request):

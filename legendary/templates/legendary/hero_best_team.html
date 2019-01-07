@@ -1,0 +1,229 @@
+{% extends 'legendary/base.html' %}
+
+{% block content %}
+
+<table class="table table-hover">
+    <thead>
+        <th>ID</th>
+        <th>Hero 1</th>
+        <th>Hero 2</th>
+        <th>Hero 3</th>
+        <th>Strenght</th>
+        <th>Instinct</th>
+        <th>Covert</th>
+        <th>Tech</th>
+        <th>Energy</th>
+        <th>Piercing energy</th>
+        <th>Teleport</th>
+        <th> X-gene </th>
+        <th>Versatile</th>
+        <th>Soaring flight</th>
+        <th>Lightshow</th>
+        <th>Berserk</th>
+        <th>Split cards</th>
+        <th>Recruitment</th>
+
+    </thead>
+
+    <!--{{heros}}-->
+
+    <tbody>
+    {% for k, v in heros.items %}
+    <tr>
+        <td>{{v.value}}</td>
+        <td>{{v.hero1}}</td>
+        <td>{{v.hero2}}</td>
+        <td>{{v.hero3}}</td>
+        <td>{{v.strenght}}</td>
+        <td>{{v.instinct}}</td>
+        <td>{{v.covert}}</td>
+        <td>{{v.tech}}</td>
+        <td>{{v.energy}}</td>
+        <td class="text-center">
+            {% if v.piercing_energy > 0 %}
+                <span class="glyphicon glyphicon-star"></span>
+            {% endif %}
+            {% if v.piercing_energy > 1 %}
+                <span class="glyphicon glyphicon-star"></span>
+            {% endif %}
+            {% if v.piercing_energy > 2 %}
+                <span class="glyphicon glyphicon-star"></span>
+            {% endif %}
+            {% if v.piercing_energy < 3 %}
+                <span class="glyphicon glyphicon-star-empty"></span>
+            {% endif %}
+            {% if v.piercing_energy < 2 %}
+                <span class="glyphicon glyphicon-star-empty"></span>
+            {% endif %}
+            {% if v.piercing_energy < 1 %}
+                <span class="glyphicon glyphicon-star-empty"></span>
+          {% endif %}
+        </td>
+        <td class="text-center">
+            {% if v.teleport > 0 %}
+                <span class="glyphicon glyphicon-star"></span>
+            {% endif %}
+            {% if v.teleport > 1 %}
+                <span class="glyphicon glyphicon-star"></span>
+            {% endif %}
+            {% if v.teleport > 2 %}
+                <span class="glyphicon glyphicon-star"></span>
+            {% endif %}
+            {% if v.teleport < 3 %}
+                <span class="glyphicon glyphicon-star-empty"></span>
+            {% endif %}
+            {% if v.teleport < 2 %}
+                <span class="glyphicon glyphicon-star-empty"></span>
+            {% endif %}
+            {% if v.teleport < 1 %}
+                <span class="glyphicon glyphicon-star-empty"></span>
+          {% endif %}
+        </td>
+        <td class="text-center">
+            {% if v.x_gene > 0 %}
+                <span class="glyphicon glyphicon-star"></span>
+            {% endif %}
+            {% if v.x_gene > 1 %}
+                <span class="glyphicon glyphicon-star"></span>
+            {% endif %}
+            {% if v.x_gene > 2 %}
+                <span class="glyphicon glyphicon-star"></span>
+            {% endif %}
+            {% if v.x_gene < 3 %}
+                <span class="glyphicon glyphicon-star-empty"></span>
+            {% endif %}
+            {% if v.x_gene < 2 %}
+                <span class="glyphicon glyphicon-star-empty"></span>
+            {% endif %}
+            {% if v.x_gene < 1 %}
+                <span class="glyphicon glyphicon-star-empty"></span>
+          {% endif %}
+        </td>
+        <td class="text-center">
+            {% if v.versatile > 0 %}
+                <span class="glyphicon glyphicon-star"></span>
+            {% endif %}
+            {% if v.versatile > 1 %}
+                <span class="glyphicon glyphicon-star"></span>
+            {% endif %}
+            {% if v.versatile > 2 %}
+                <span class="glyphicon glyphicon-star"></span>
+            {% endif %}
+            {% if v.versatile < 3 %}
+                <span class="glyphicon glyphicon-star-empty"></span>
+            {% endif %}
+            {% if v.versatile < 2 %}
+                <span class="glyphicon glyphicon-star-empty"></span>
+            {% endif %}
+            {% if v.versatile < 1 %}
+                <span class="glyphicon glyphicon-star-empty"></span>
+          {% endif %}
+        </td>
+        <td class="text-center">
+            {% if v.soaring_flight > 0 %}
+                <span class="glyphicon glyphicon-star"></span>
+            {% endif %}
+            {% if v.soaring_flight > 1 %}
+                <span class="glyphicon glyphicon-star"></span>
+            {% endif %}
+            {% if v.soaring_flight > 2 %}
+                <span class="glyphicon glyphicon-star"></span>
+            {% endif %}
+            {% if v.soaring_flight < 3 %}
+                <span class="glyphicon glyphicon-star-empty"></span>
+            {% endif %}
+            {% if v.soaring_flight < 2 %}
+                <span class="glyphicon glyphicon-star-empty"></span>
+            {% endif %}
+            {% if v.soaring_flight < 1 %}
+                <span class="glyphicon glyphicon-star-empty"></span>
+          {% endif %}
+        </td>
+        <td class="text-center">
+            {% if v.lightshow > 0 %}
+                <span class="glyphicon glyphicon-star"></span>
+            {% endif %}
+            {% if v.lightshow > 1 %}
+                <span class="glyphicon glyphicon-star"></span>
+            {% endif %}
+            {% if v.lightshow > 2 %}
+                <span class="glyphicon glyphicon-star"></span>
+            {% endif %}
+            {% if v.lightshow < 3 %}
+                <span class="glyphicon glyphicon-star-empty"></span>
+            {% endif %}
+            {% if v.lightshow < 2 %}
+                <span class="glyphicon glyphicon-star-empty"></span>
+            {% endif %}
+            {% if v.lightshow < 1 %}
+                <span class="glyphicon glyphicon-star-empty"></span>
+          {% endif %}
+        </td>
+        <td class="text-center">
+            {% if v.berserk > 0 %}
+                <span class="glyphicon glyphicon-star"></span>
+            {% endif %}
+            {% if v.berserk > 1 %}
+                <span class="glyphicon glyphicon-star"></span>
+            {% endif %}
+            {% if v.berserk > 2 %}
+                <span class="glyphicon glyphicon-star"></span>
+            {% endif %}
+            {% if v.berserk < 3 %}
+                <span class="glyphicon glyphicon-star-empty"></span>
+            {% endif %}
+            {% if v.berserk < 2 %}
+                <span class="glyphicon glyphicon-star-empty"></span>
+            {% endif %}
+            {% if v.berserk < 1 %}
+                <span class="glyphicon glyphicon-star-empty"></span>
+          {% endif %}
+        </td>
+        <td class="text-center">
+            {% if v.recruitment_points > 0 %}
+                <span class="glyphicon glyphicon-star"></span>
+            {% endif %}
+            {% if v.recruitment_points > 1 %}
+                <span class="glyphicon glyphicon-star"></span>
+            {% endif %}
+            {% if v.recruitment_points > 2 %}
+                <span class="glyphicon glyphicon-star"></span>
+            {% endif %}
+            {% if v.recruitment_points < 3 %}
+                <span class="glyphicon glyphicon-star-empty"></span>
+            {% endif %}
+            {% if v.recruitment_points < 2 %}
+                <span class="glyphicon glyphicon-star-empty"></span>
+            {% endif %}
+            {% if v.recruitment_points < 1 %}
+                <span class="glyphicon glyphicon-star-empty"></span>
+          {% endif %}
+        </td>
+        <td class="text-center">
+            {% if v.costs > 0 %}
+                <span class="glyphicon glyphicon-star"></span>
+            {% endif %}
+            {% if v.costs > 1 %}
+                <span class="glyphicon glyphicon-star"></span>
+            {% endif %}
+            {% if v.costs > 2 %}
+                <span class="glyphicon glyphicon-star"></span>
+            {% endif %}
+            {% if v.costs < 3 %}
+                <span class="glyphicon glyphicon-star-empty"></span>
+            {% endif %}
+            {% if v.costs < 2 %}
+                <span class="glyphicon glyphicon-star-empty"></span>
+            {% endif %}
+            {% if v.costs < 1 %}
+                <span class="glyphicon glyphicon-star-empty"></span>
+          {% endif %}
+        </td>
+    </tr>
+    {% endfor %}
+
+    </tbody>
+
+</table>
+
+{% endblock %}
